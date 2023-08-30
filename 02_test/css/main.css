@@ -8,3 +8,8 @@ div {
   height: 500px;
   background-image: url("../images/logo.png");
 }
+h1{
+  color:blueviolet;
+  font-size: large;
+  background-color: black;
+}
