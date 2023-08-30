@@ -59,3 +59,8 @@ git pull origin main
 중간중간 git status, git log도 써보기!
 
 파일 수정
+툴 사용법:
+왼쪽 세로탭 3번째에서 변동 사항 있을 시 changes에 올라감 >
++ 버튼 누르면 stage에 등록 (git add ___ )
+위에 대화창에 커밋 작성 후 커밋 버튼 누르면 등록 (git commit -m "예시")
+... 메뉴 눌러서 push 하면 저장 완료 (git push "origin" "main") (오리진 이라는 별명을 가진 주소로 메인이라는 이름으로 등록한다 는 뜻)
