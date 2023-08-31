@@ -11,8 +11,9 @@
 }
 .item {
   width: 300px;
-  padding: 30px;
+  padding: 40px;
   background-color: blanchedalmond;
+  font-size: 30px;
 }
 .a {
   width: 50px;
