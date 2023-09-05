@@ -60,7 +60,71 @@
       text-indent: -2em;
     }
 
+    .ls-3px {
+      letter-spacing: 3px;
+    }
+    .ls-2px {
+      letter-spacing: 2px;
+    }
+    .ls--1px {
+      letter-spacing: -1px;
+    }
 
+    .ws-30px {
+      word-spacing: 30px;
+    }
+
+    .white-space-norwap {
+      white-space: nowrap;
+    }
+    .white-space-pre {
+      white-space: pre;
+    }
+
+    p.wrapper {
+      width: 140px;
+      border: 1px solid #000;
+    }
+    .word-break-keep-all {
+      word-break: keep-all;
+    }
+    .word-break-all {
+      word-break: break-all;
+    }
+
+    /* Tip! 말 줄입표(...) */
+    div.box {
+      width: 150px;
+      border: 1px solid #000;
+
+      /* 말 줄임표 만드는 CSS 패턴 */
+      /* 아래 3개 속성이 세트로 같이 필요(암기x) */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    div.box-multiline {
+      width: 300px;
+      border: 1px solid #000;
+
+      display: -webkit-box; /* 해당 영역을 box 형태로 관리 */
+      -webkit-box-orient: vertical; /* 영역 박스 안의 내용을 세로로 배치 */
+      -webkit-line-clamp: 2; /* 영역 박스 안 내용의 최대 라인수 */
+      overflow: hidden ;
+    }
+    /* (참고) can i use? 접속해보기 */
+
+    /* (참고) 벤더 프리픽스:  
+      CSS 표준으로 확정되기 이전 또는 브라우저 개발사가 실험적으로 제공하는 기능을 사용하기 위해 붙임
+      또는 표준으로 확정 후 이전 버전의 브라우저까지 지원하려면 밴더 프리픽스를 붙여야 함
+      -webkit- = 크롬, 사파리
+      -moz- = 모질라 파이어폭스
+      -o- = 오페라
+      -ms- = 익스플로러
+      
+      참고: https://uxkm.io/publishing/css/03-cssMiddleclass/04-css_vendor#gsc.tab=0
+    */
+    */
   </style>
 </head>
 <body>
@@ -104,13 +168,13 @@
 
   <h1>letter-spacing: 문자 사이의 간격(자간)</h1>
   <p>이것은 텍스트입니다, normal</p>
-  <p class="">이것은 텍스트입니다, 3px.</p>
-  <p class="">이것은 텍스트입니다, 2px.</p>
-  <p class="">이것은 텍스트입니다, -1px.</p>
+  <p class="ls-3px">이것은 텍스트입니다, 3px.</p>
+  <p class="ls-2px">이것은 텍스트입니다, 2px.</p>
+  <p class="ls--1px">이것은 텍스트입니다, -1px.</p>
 
   <h1>word-spacing: 단어 사이의 간격</h1>
   <p>이것은 텍스트입니다, normal</p>
-  <p class="">이것은 텍스트입니다, 30px.</p>
+  <p class="ws-30px">이것은 텍스트입니다, 30px.</p>
   
   <h1>white-space: 공백문자 처리 방법</h1>
   <h2>normal:</h2>
@@ -120,13 +184,13 @@
     Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
   </p>
   <h2>nowrap: 줄바꿈 없음(주로 사용)</h2>
-  <p class="">
+  <p class="white-space-norwap">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Etiam semper diam at erat pulvinar, at pulvinar felis blandit.
     Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
   </p>
   <h2>pre:</h2>
-  <p class=""> 
+  <p class="white-space-pre"> 
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Etiam semper diam at erat pulvinar, at pulvinar felis blandit.
     Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
@@ -137,10 +201,30 @@
   <p class="wrapper">Thisissomeveryveryverylong word. Words will break according to usual rules.</p>
   <p class="wrapper">이것은매우매우매우매우매우긴 단어입니다. 일반적인 규칙에 따라 단어가 줄바꿈 됩니다.</p>
   <h2>keep-all: 단어 단위 줄바꿈(주로 사용, 한중일 텍스트만 적용됨)</h2>
-  <p class="wrapper">Thisissomeveryveryverylong word. This text will-break-at-hyphens.</p>
-  <p class="wrapper">이것은매우매우매우매우매우긴 단어입니다. 이 텍스트는 하이픈-단위에서-줄바꿈-됩니다.</p>
+  <p class="wrapper word-break-keep-all">Thisissomeveryveryverylong word. This text will-break-at-hyphens.</p>
+  <p class="wrapper word-break-keep-all">이것은매우매우매우매우매우긴 단어입니다. 이 텍스트는 하이픈-단위에서-줄바꿈-됩니다.</p>
   <h2>break-all: 문자 단위 줄바꿈</h2>
-  <p class="wrapper">Thisissomeveryveryverylong word. This text will break at any character.</p>
-  <p class="wrapper">이것은매우매우매우매우매우긴 단어입니다. 이 텍스트는 문자 단위로 줄바꿈 됩니다.</p>
+  <p class="wrapper word-break-all">Thisissomeveryveryverylong word. This text will break at any character.</p>
+  <p class="wrapper word-break-all">이것은매우매우매우매우매우긴 단어입니다. 이 텍스트는 문자 단위로 줄바꿈 됩니다.</p>
+
+  <!-- Tip! 넘치는 텍스트에 말 줄임표(...) 만들기 -->
+  <h1>text-overflow: 오버플로우 된 내용을 어떻게 보일지 지정</h1>
+  <h2>ellipsis: 생략(...)</h2>
+  <div class="box">이것은 매우 긴 제목입니다.</div>
+
+  <h2>2줄 이상일 때</h2>
+  <div class="box-multiline">이것은 매우 긴 설명입니다.이것은 매우 긴 설명입니다.이것은 매우 긴 설명입니다.이것은 매우 긴 설명입니다.이것은 매우 긴 설명입니다.</div>
+
 </body>
 </html>
+
+<!-- 정리 quiz
+  q1: 문자를 수평 정렬하는 속성은
+  a1: text-align: center
+  
+  q2: 문자를 들여쓰는 속성은?
+  a2: text-indent
+  
+  q3: text-decoration 속성의 기본값은?
+  a3: none 
+-->
