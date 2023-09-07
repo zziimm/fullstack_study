@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    /* 공통 스타일은 앞부분에 작성 */
+    ul {
+      list-style: none;
+      display: flex;
+      
+    }
+
+    a {
+      width: 15px;
+      background-color: #60b329;
+      text-decoration: none;
+      padding: 10px 20px;
+      font-size: 30px;
+      border-radius: 15px;
+      color: #fff;
+    }
+
+    li + li {
+      margin-left: 5px;
+    }
+    
+    div.container {
+      display: flex;
+      width: 80%;
+      max-width: 1000px;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+    
+    img.profile {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      
+    }
+
+    div.content-header {
+      display: flex;
+      align-items: center;
+    }
+
+
+    .main-content span {
+      font-weight: 700;
+    }
+
+    img.main {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- Tip! 레이아웃을 만드는 기본 
+    뭘 만들든 레이아웃은 항상 박스부터 만들고 시작하면 됨
+    그리고 이 박스들을 전부 <div>로 구현해 놓으면 됨(물론 시멘틱 태그도 최대한 활용)
+    그리고 안에 글 넣고 그림 넣고 하면 끝!
+
+    이때 <div>는 블록 요소이기 때문에 위아래로 배치됨
+      좌우로 나란히 배치하고 싶으면 float(지양), inline-block(😒), flexbox(😊)
+  -->
+
+  <!-- navbar -->
+  <nav>
+    <ul class="navbar">
+      <li><a href="#">영화</a></li>
+      <li><a href="#">맛집</a></li>
+      <li><a href="#">IT</a></li>
+      <li><a href="#">컴퓨터</a></li>
+    </ul>
+  </nav>
+
+  <!-- blog list item -->
+  <div  class="container">
+    <div class="blog-content">
+      <div class="content-header">
+        <!-- 프로필 이미지 -->
+        <img class="profile" src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/cnoC/image/L5UV5eFyTS1Ar4MTDDOd_Ynrzt4" alt="프로필">
+        <!-- 작성자, 시간 -->
+        <p>천지민 <br>
+        1시간 전
+        </p>
+      </div>
+      <div class="main-content">
+        <!-- 제목, 글 내용 -->
+        <p><span>가성비 맛집을 발견했어요!</span> <br> <br>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deserunt est illo eum commodi voluptate omnis cumque nisi quasi autem quis iusto corporis, et debitis excepturi consectetur sapiente id sit.
+        </p>
+      </div>
+    </div>
+    <div class="blog-img">
+      <!-- 샘플 이미지 -->
+      <img class="main" src="https://www.domin.co.kr/news/photo/201910/1267113_385331_5721.jpg" alt="맛집">
+    </div>
+  </div>
+</body>
+</html>

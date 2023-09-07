@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  .bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 650px;
+    background-color: black;
+    margin-top: 0.1px;
+  }
+
+  .window {
+    width: 30%;
+    height: 85%;
+    background-color: #fff;
+    padding: 20px;
+    min-width: 500px;
+    max-width: 500px;
+    border-radius: 15px;
+  }
+
+  input {
+    border: 2px solid #efefef;
+    border-radius: 6px;
+    outline: none;
+    font-size: 20px;
+  }
+
+  h4 {
+    margin-bottom: 3px;
+  }
+
+  .transition:focus {
+    border: 2px solid royalblue;
+    transition: 1s;
+  }
+
+  .mail {
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  input.mail:focus::placeholder {
+    color: transparent;
+  }
+
+  .sec {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+  }
+  
+  .FN,
+  .LN {
+    width: 100%;
+    height: 40px;
+  }
+
+  .Message-box {
+    width: 100%;
+    height: 150px;
+    border: 2px solid #efefef;
+    border-radius: 6px;
+    outline: none;
+    resize: none;
+    font-size: 16px;
+  }
+  
+  .end {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .checkbox {
+    font-weight: 700;
+  }
+
+  .send-btn-1 {
+    background-color: royalblue;
+    color: #fff;
+    padding: 8px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .send-btn-1:active {
+    background-color: rgb(169, 191, 255);
+  }
+
+</style>
+</head>
+<body>
+  <div class="bg">
+    <form class="window">
+      <h2>Contact Us</h2>
+      <div class="email">
+        <h4>Your Email</h4>
+        <input type="text" class="mail transition" placeholder="email@example.com">
+      </div>
+      <div class="sec">
+        <div class="First Name">
+        <h4>First Name</h4>
+        <input type="text" class="FN transition">
+        </div>
+        <div class="Last Name">
+          <h4>Last Name</h4>
+          <input type="text" class="LN transition">
+        </div>
+      </div>
+      <div class="Message">
+        <h4>Message</h4>
+        <textarea class="Message-box transition" cols="30" rows="10"></textarea>
+      </div>
+      <div class="end">
+        <label>
+          <input type="checkbox">Agree
+        </label>
+        <div class="send-btn">
+          <button class="send-btn-1">SEND</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</body>
+</html>
