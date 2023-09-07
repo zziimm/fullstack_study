@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     width: 100vw;
-    height: 650px;
+    height: 600px;
     background-color: black;
     margin-top: 0.1px;
   }
@@ -25,11 +25,17 @@
     border-radius: 15px;
   }
 
+  div, textarea {
+    box-sizing: border-box;
+  }
+
   input {
     border: 2px solid #efefef;
     border-radius: 6px;
     outline: none;
     font-size: 20px;
+    box-sizing: border-box;
+    transition: 1s;
   }
 
   h4 {
@@ -71,11 +77,13 @@
     outline: none;
     resize: none;
     font-size: 16px;
+    transition: 1s;
   }
   
   .end {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
   }
 
   .checkbox {
@@ -88,6 +96,7 @@
     padding: 8px 30px;
     border-radius: 5px;
     cursor: pointer;
+    border: none;
   }
 
   .send-btn-1:active {
@@ -104,6 +113,7 @@
         <h4>Your Email</h4>
         <input type="text" class="mail transition" placeholder="email@example.com">
       </div>
+
       <div class="sec">
         <div class="First Name">
         <h4>First Name</h4>
@@ -114,10 +124,12 @@
           <input type="text" class="LN transition">
         </div>
       </div>
+
       <div class="Message">
         <h4>Message</h4>
         <textarea class="Message-box transition" cols="30" rows="10"></textarea>
       </div>
+
       <div class="end">
         <label>
           <input type="checkbox">Agree
@@ -131,3 +143,10 @@
   </div>
 </body>
 </html>
+
+<!-- label 태그를 써서 바인딩을 하자! (제목만 눌러도 input이 활성화 됨)-->
+<!-- 
+  <p>
+    <label for="name">name</label>
+  </p>
+  <input type="text" id="name"> -->
