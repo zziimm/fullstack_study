@@ -92,7 +92,56 @@
     console.log(arr[1]);
     console.log(arr[2]);
 
+    // (활용 예) 상품 리스트, 사용자 리스트
+    const productlist = [
+      {
+        productId: 1,
+        productName: '고려은단 비타민C',
+        price: 32900,
+        productImg: 'http://이미지경로',
+        brand: '고려은단'
+      }, 
+      {
+        productId: 2,
+        productName: '콘드로이친1200',
+        price: 285000,
+        productImg: 'http://이미지경로',
+        brand: '관절엔'
+      }, 
+      {
+        productId: 3,
+        productName: '에버콜라겐C',
+        price: 210000,
+        productImg: 'http://이미지경로',
+        brand: '뉴트리'
+      }
+    ];
 
+    const userlist = [
+      {
+        userId: 1,
+        name: '천지',
+        age: 123,
+        email: 'ddd@fsdf',
+        hobby: ['이것', '저것', '요것', '저러너너러넌']
+      },
+      {
+        userId: 2,
+        name: '김지',
+        age: 13,
+        email: 'ddd@f123123f',
+        hobby: ['이겨격것', '저갹갹것', '요격격격것', '저러너너러넌']
+      }
+    ]
+
+
+    // (참고) JS는 매우 유연한 언어:
+    // 데이터 타입이 값을 넣는 순간에 결정되고 여러 데이터 타입을 넣을 수 있음
+    // => 동적 타입 언어
+    let e = 1;
+    console.log(typeof e); // typeof: 데이터 타입을 체크
+    e = 'abc';
+    console.log(typeof e);
   </script>
 </body>
 </html>
