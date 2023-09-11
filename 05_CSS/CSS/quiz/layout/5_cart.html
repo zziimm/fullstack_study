@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    .inner {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cart-background {
+      width: 100%;
+      background-color: lightskyblue;
+      padding: 30px;
+    }
+
+    .cart-list {
+      background-color: #fff;
+      border-radius: 10px;
+    }
+
+    tr.name :nth-child(1) {
+      width: 20%;
+    }
+
+    th, td {
+      padding: 20px;
+      text-align: center;
+    }
+
+    tr + tr {
+      border-top: 3px solid lightskyblue;
+    }
+
+    th.items {
+      width: 40%;
+    }
+
+    .img {
+      width: 100%;
+    }
+
+    tr.name {
+      font-weight: 700;
+    }
+
+    .item-name {
+      text-align: left;
+    }
+
+    .total {
+      text-align: right;
+    }
+
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    button {
+      font-size: 20px;
+      border: none;
+      border-radius: 15px;
+      background-color: orange;
+      color: #fff;
+      padding: 10px 20px
+    }
+
+    button:hover {
+      background-color: rgb(247, 217, 162);
+      cursor: pointer;
+    }
+
+    button:active {
+      background-color: orangered;
+    }
+
+    a {
+      font-size: 20px;
+    }
+    
+
+  </style>
+</head>
+<body>
+  <div class="cart-background">
+    <!-- 가운데 정렬을 위한 div -->
+    <div class="inner">
+      <h2>너의 장바구니</h2>
+      <table class="cart-list">
+        <tr class="name">
+          <th></th>
+          <th class="items">ITEM</th>
+          <th>AMOUNT</th>
+          <th>PRICE</th>
+          <th>TOTAL</th>
+        </tr>
+        <tr>
+          <td><img class="img" src="https://i0.wp.com/osiswing.com/wp-content/uploads/2021/02/KakaoTalk_20210220_014056116.jpg?resize=1024%2C989&ssl=1" alt="신발"></td>
+          <td class="item-name">카메라</td>
+          <td>1</td>
+          <td>100,000</td>
+          <td>100,000</td>
+        </tr>
+        <tr>
+          <td><img class="img" src="https://i0.wp.com/osiswing.com/wp-content/uploads/2021/02/KakaoTalk_20210220_014056116.jpg?resize=1024%2C989&ssl=1" alt="신발"></td>
+          <td class="item-name">신발신발신발</td>
+          <td>2</td>
+          <td>59,000</td>
+          <td>118,000</td>
+        </tr>
+        <tr>
+          <td class="total" colspan="5">총가격:218,000</td>
+        </tr>
+      </table>
+      <div class="bottom">
+        <a href="#">계속 쇼핑하기</a>
+        <button type="button">구매하기</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

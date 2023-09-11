@@ -12,7 +12,26 @@
       height: 500px;
       opacity: 1;
       position: relative;
-      
+    }
+
+    li {
+      list-style: none;
+    }
+
+    nav.nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ul {
+      display: flex;
+      column-gap: 20px;
+    }
+
+    .menu-item {
+      font-size: 20px;
+      font-weight: 500;
     }
 
     .suv {
@@ -69,7 +88,15 @@
   </style>
 </head>
 <body>
-  
+  <NAV class="nav-container">
+    <h1>Shoes Shop</h1>
+    <UL>
+      <LI class="menu-item">products</LI>
+      <LI class="menu-item">Servies</LI>
+    </UL>
+  </NAV>
+
+
   <div class="bg">
     <h1 class="head">Buy our excellent shoes!</h1>
     <div class="suv">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum illo iste, error quo, doloribus laudantium voluptates quae, omnis maxime amet quos sapiente repellat ducimus officiis. Quam qui numquam libero non!</div>
