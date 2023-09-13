@@ -1,5 +1,13 @@
+body {
+  box-sizing: border-box;
+}
+
 a {
   text-decoration: none;
+}
+
+div {
+  display: block;
 }
 
 .inner {
@@ -43,15 +51,35 @@ header .inner {
   height: 48px;
 }
 
-.inner .btn_pop {
+.inner .header_items_first {
   position: absolute;
   left: 0;
+}
+.inner .btn_pop {
+  background-color: transparent;
+  color: #fff;
+}
+.inner .btn_pop span + span{
+  margin-left: -10px;
 }
 
 .inner .header_items_third {
   position: absolute;
   right: 0;
+
 }
+
+.inner .header_items_third .lang .btn_language {
+  width: 110px;
+  height: 40px;
+  font-size: 3px;
+}
+
+.inner .header_items_third .btn_language span:nth-child(2) {
+  font-size: 15px;
+  margin: 0px 8px 0px 14px;
+}
+
 
 .inner .btn_play {
   width: 300px;
@@ -59,5 +87,11 @@ header .inner {
   font-weight: 700;
   font-size: 28px;
   letter-spacing: -0.7px;
-  background-image: url(./images/play.jpg);
+  background-image: url(./images/e3b29f1.png);
+  transition: 0.4s;
 }
+.inner .btn_play:hover {
+  opacity: 0.6;
+}
+
+
