@@ -1,0 +1,63 @@
+a {
+  text-decoration: none;
+}
+
+.inner {
+  max-width: 1831px;
+  margin: 0 auto;
+  position: relative;
+}
+
+img {
+  display: block;
+}
+
+button {
+  outline: none;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+}
+
+
+header {
+  background-color: rgb(34, 34, 34);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 9;
+}
+
+header .inner {
+  background-color: rgb(34, 34, 34);
+  height: 104px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.inner .main-img {
+  width: 139px;
+  height: 48px;
+}
+
+.inner .btn_pop {
+  position: absolute;
+  left: 0;
+}
+
+.inner .header_items_third {
+  position: absolute;
+  right: 0;
+}
+
+.inner .btn_play {
+  width: 300px;
+  height: 104px;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.7px;
+  background-image: url(./images/play.jpg);
+}
