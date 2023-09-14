@@ -1,3 +1,16 @@
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
 header {
   /* display: flex;
   justify-content: center;
@@ -11,12 +24,32 @@ header .inner {
   justify-content: center;
   align-items: center;
   justify-content: space-between;
-  max-width: 1830px;
+  /* max-width: 1830px; */
   height: 100%;
-  padding: 0 36px;
+  /* padding: 0 36px; */
+  /* margin: 0 auto; */
+  
+}
+header .first_items {
+  justify-content: flex-start;
+  flex-grow: 3.5;
+}
+header .inner .first_items button {
+  background-color: transparent;
+  color: #fff;
+  display: block;
+}
+
+header .inner .first_items button:first-child {
+  margin-left: 20px;
+}
+header .inner .first_items button span + span {
+  margin-left: -10px;
 }
 
 header .second_items {
+  justify-content: center;
+  flex-grow: 1;
 }
 header .second_items a{
   height: 100%;
@@ -30,14 +63,87 @@ header .second_items a img{
 
 header .inner .third_items {
   display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 
-
+header .inner .third_items .btn_language {
+  display: flex;
+  padding: 8px;
+}
 header .inner .third_items .btn_language button span {
-  display: block;
+  /* display: block; */
 }
 header .inner .third_items .btn_language button {
-  background-color: aquamarine;
+  background-color: transparent;
+  color: #fff;
   display: flex;
   align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 25px;
+}
+header .inner .third_items .PLAYNOW button {
+  width: 300px;
+  height: 104px;
+  background-color: orange;
+  transition: 0.4s;
+  font-weight: 700;
+  font-size: 28px;
+}
+header .inner .third_items .PLAYNOW button:hover {
+  background-color: rgb(196, 62, 0);
+}
+
+nav {
+  width: 100%;
+  height: 56px;
+  background-color: rgb(34, 34, 34);
+  display: block;
+}
+/* nav .topMenu {
+  width: 768px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  column-gap: 80px;
+  
+}
+nav .topMenu > li {
+  /* display: block; */
+  /* height: 56px; */
+/* } */
+/* nav .topMenu > li > a {
+  color: #fff;
+} */
+nav .inner {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  column-gap: 80px;
+}
+nav .inner div span {
+  font-size: 16px;
+  font-weight: 700;
+}
+nav .inner div span .material-icons {
+  color: #5e5e5e;
+}
+nav .inner div a{
+  font-size: 16px;
+  font-weight: 700;
+}
+nav .inner .info {
+  position: relative;
+  
+}
+nav .inner .info .dropdown_inner {
+  background-color: #000;
+  position: absolute;
+  left: 0;
+  top: 37px;
+}
+nav .inner .info .dropdown_inner > ul > li {
+  
 }
