@@ -1,0 +1,43 @@
+header {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 104px;
+  background-color: #000;
+}
+
+header .inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1830px;
+  height: 100%;
+  padding: 0 36px;
+}
+
+header .second_items {
+}
+header .second_items a{
+  height: 100%;
+  padding: 10px 0;
+}
+header .second_items a img{
+  width: 139px;
+  height: 48px;
+}
+
+
+header .inner .third_items {
+  display: flex;
+}
+
+
+header .inner .third_items .btn_language button span {
+  display: block;
+}
+header .inner .third_items .btn_language button {
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+}

@@ -7,7 +7,7 @@ a {
 }
 
 div {
-  display: block;
+  /* display: block; */
 }
 
 .inner {
@@ -17,7 +17,7 @@ div {
 }
 
 img {
-  display: block;
+  /* display: block; */
 }
 
 button {
