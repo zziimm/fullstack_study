@@ -153,7 +153,7 @@
     // 피연산자로 true, false로 취급되는 값이 음
     // &&(AND): 피연산자 둘 다 true일때만 true, 피자 그리고 떡볶이 사와
     // ||(OR): 둘 중에 한개만 true이면 true, 피자 또는 떡볶이 사와
-    // | (NOT): 부정 연산자, true <=> false 
+    // ! (NOT): 부정 연산자, true <=> false 
     document.write('<h2>논리 연산자</h2>')
     a = 10;
     b = 20;
@@ -205,6 +205,26 @@
     let ff = aa || bb || cc || dd || ee;
     document.write(ff, '<br>'); // 4
 
+    // 삼항 연산자
+    // 조건식  ? 값1 : 값2;
+    document.write('<h2>삼항 연산자</h2>');
+    result = false ? 'js' : 'hello';
+    document.write(result, '<br>');
+
+    const score = 85;
+    result = score >= 90 ? 'A' : (score >= 80 ? 'B' : 'C');
+    document.write(result, '<br>');
+
+    // 실습: 홀짝 판별기
+    // window.prompt('메세지', '기본값'): 입력을 요청하는 대화 상자
+    // 확인을 누르면 입력값이, 취소를 누르면 null을 반환
+    document.write('<h2>홀짝 판별기</h2>');
+    const number = prompt('숫자를 입력하세요.', '0');
+
+    // % 연산 시 문자가 숫자로 자동 타입 변환이 일어남
+    result = Number(number) % 2 === 0 ? '짝수' : '홀수';
+    document.write(result);
+    
   </script>
 </head>
 <body>
