@@ -12,11 +12,40 @@
 
     // 풀이5
 
+    const first = Number(prompt('정수1'));
+    const second = Number(prompt('정수2'));
+    const third = Number(prompt('정수3'));
+
+    document.write('최대값 : ' + Math.max(first, second, third), '<br>');
+    document.write('최소값 : ' + Math.min(first, second, third), '<br>');
+    document.write('합계 : ' + (first + second + third), '<br>');
+    document.write('평균 : ' + ((first + second + third) / 3), '<br>');
     
+
     
+
+    // if문으로 구하는 방법
+    // 주의! 덧셈을 하거나 문자끼리 비교를 피하려면 숫자로 변환해 줄 것!!
+    
+    // 최대값
+    // let max = first;
+    // if (max < second) max = second;
+    // if (max < third) max = third;
+
+    // 최소값
+    // let min = first;
+    // if (min > second) min = second;
+    // if (min > third) min = third;
+
+    // const sum = first + second + third;
+    // const avg = sum / 3;
+
+
   </script>
 </head>
 <body>
   
 </body>
 </html>
+
+
