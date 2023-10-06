@@ -23,7 +23,7 @@
     let change = 0; // 거스름돈
     
     // 풀이
-    if (money < 0) {
+    if (money < 0 || !(Number(money))) {
       alert('정상적인 값을 입력해주세요.');
       location.reload();
     } else {
