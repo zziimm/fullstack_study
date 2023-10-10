@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // 문제4
+    // 배열에서 최대값, 최소값 구하기(여러가지 방법 존재)
+    // 힌트: for문 또는 sort() 사용
+    const points = [40, 100, 1, 5, 25, 10];
+
+    // 풀이4
+
+    let min = points.sort(function(a, b) { return a - b; });
+    console.log(min);
+    console.log(min[0]);
+    let max = points.sort(function(a, b) { return b - a; });
+    console.log(max);
+    console.log(max[0]);
+
+    
+
+    // 
+    let maxx = points[0]; // -Infinity;
+    let minn = points[0]; // Infinity;
+
+    for (const el of points) {
+      // if (maxx < el) max = el;
+      // if (minn > el) minn = el;
+      maxx = Math.max(maxx, el)
+      minn = Math.min(minn, el)
+    }
+    document.write('최대값: ' + maxx, '<br>');
+    document.write('최소값: ' + minn, '<br>');
+
+
+    //
+    points.sort(function (a, b) {
+      return a - b;
+    }); // 오름차순
+    document.write('최대값: ' + points[points.length - 1])
+    document.write('최소값: ' + points[0])
+    
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
