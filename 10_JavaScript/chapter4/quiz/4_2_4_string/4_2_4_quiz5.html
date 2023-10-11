@@ -29,14 +29,16 @@
       console.log(fileInput.files); // FileList 객체
       console.log(fileInput.files[0]); // File 객체
       console.log(fileInput.files[0].name);
-      const fileExt = fileInput.files[0].name;
-      for (let i = 0; i <= imgFileExt; i++) {
-        if (fileExt.includes(imgFileExt[i])) {
-          console.log(fileExt);
-        } else {
-          alert('경고');
-        }
+
+      const fileName = fileInput.files[0].name;
+      const fileExt = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+      console.log(fileExt);
+      if (!imgFileExt.includes(fileExt)) {
+        alert('이미지 파일이 아닙니다!');
       }
+
+      
+    
     });
 
     // 풀이5
