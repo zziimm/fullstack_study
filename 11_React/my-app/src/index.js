@@ -10,7 +10,7 @@ root.render(
     // <App />
 
     // 3장 예제
-    <JsxUse />
+    <JsxUse />  // 대문자로 만들어야함! (컴포넌트와 태그의 차이점)
 );
 
 // If you want to start measuring performance in your app, pass a function
