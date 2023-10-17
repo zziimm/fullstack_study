@@ -1,0 +1,23 @@
+node.js 설치
+설치 중 체크박스 체크해야 리액트 환경에서 유리(?)
+
+버전확인
+(PDA파일 4p)
+
+파일 만들기:
+터미널 > cd 11_React (cd하고 폴더명)
+
+아래보다 버전이 낮으면
+(학원에선 버전 낮아서 설치가 안됐음 (9.8.1에서 안됐음))
+npm install -g npm@10.2.0
+vsCode 터미널창에 입력 후 버전업
+
+하고
+npx create-react-app my-app
+입력 후 설치 (PDA파일 22p)
+
+npm을 실행시킬때는 해당 폴더 들어가서 npm start 해야 실행됨
+해당 파일에서는
+cd 11_React
+cd my-app
+npm start
