@@ -1,7 +1,7 @@
 # React App 구조 살펴보기
 - package.json:
   프로젝트 및 패키지 정보를 관리
-  npm installf로 패키지 설치 시 기록됨
+  npm install로 패키지 설치 시 기록됨
   설치된 패키지는 node_modules 폴더에 추가됨
   node_modules 폴더는 git에 올리지 않기때문에 .gitignore에 자동으로 추가되어 있음(프로젝트를 처음 받아서 npm install 하면 됨!)
 
