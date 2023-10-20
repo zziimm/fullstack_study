@@ -21,3 +21,9 @@ npm을 실행시킬때는 해당 폴더 들어가서 npm start 해야 실행됨
 cd 11_React
 cd my-app
 npm start
+
+
+npm start 가 안될 때
+pull하고 나서는 npm install하고 스타트
+
+

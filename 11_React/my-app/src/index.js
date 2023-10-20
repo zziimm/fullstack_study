@@ -21,6 +21,11 @@ import LoginControl from './chapter9/9.2/LoginControl';
 import LoginControlRefactoring from './chapter9/9.3/LoginControlRefactoring';
 import Mailbox from './chapter9/9.3/Mailbox';
 import MainPage from './chapter9/9.4/MainPage';
+import LandingPage from './chapter9/LandingPage';
+import NumbetList from './chapter10/10.1/NumberList';
+import ListKey from './chapter10/10.2/ListKey';
+import AttendanceBook from './chapter10/AttendanceBook';
+import NameForm from './chapter11/11.2/NameForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -53,11 +58,11 @@ root.render(
     // text="안녕하세요"
     // date="2023-10-18"/>
 
-    <Com 
-    profile={{imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png", userName: "지민지"}}
-    text="리액트 연습하기"
-    date="2023-10-20"
-    />
+    // <Com 
+    // profile={{imgUrl: "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png", userName: "지민지"}}
+    // text="리액트 연습하기"
+    // date="2023-10-20"
+    // />
     // 6장 예제
     // <NotificationList />
 
@@ -79,6 +84,14 @@ root.render(
     // <Mailbox unreadMessages={messages} />
 
     // <MainPage />
+
+    // <LandingPage />
+
+    // 10장 예제
+    // <NumbetList />
+    // <ListKey />
+    // <AttendanceBook />
+    <NameForm />
 
 );
 
