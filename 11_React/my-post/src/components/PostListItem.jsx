@@ -10,6 +10,35 @@ function PostListItem() {
   const [likeCount, setLikeCount] = useState([0, 0, 0]);
   const [plus, setPlus] = useState('');
 
+  const [inputs, setInputs] = useState(
+    [{
+      id: 1,
+      postss: '리액트 잘 쓰려면?',
+      likeCountt: 0,
+      date: new Date(),
+      author: 'zim'
+    },
+    {
+      id: 2,
+      postss: '자바스크립트 핵심 문법',
+      likeCountt: 0,
+      date: new Date(),
+      author: '지민지'
+    },
+    {
+      id: 3,
+      postss: '리액트를 잘 써보자',
+      likeCountt: 0,
+      date: new Date(),
+      author: '민지민'
+    }]
+  );
+  console.log(inputs);
+  const {id, postss, likeCountt, date, author} = inputs
+  console.log(id);
+
+
+
 
   const handlePlus = (e) => {
     setPlus(e.target.value) 

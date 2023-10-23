@@ -22,7 +22,7 @@ function App() {
           </ul>
         </nav>
       </header>
-      
+
       <PostListItem />
     </>
   );
@@ -41,6 +41,8 @@ export default App;
 // 새로고침 시 HTML/CSS/JS 파일을 다시 읽어와서 그렇다.
 // 데이터를 유지하려면 서버에 보내서 DB에 영구 저장하고
 // 새로고침 발생 시 DB에서 다시 읽어오면 됨
+
+
 
 // <추가 개선 과제>
 // 1. PostListItem 컴포넌트 추출
