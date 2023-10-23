@@ -19,17 +19,37 @@ import { useState } from "react";
 // 1) form 태그 및 submit 이벤트를 사용해도 되고 button 태그의 click 이벤트를 사용해도 됨
 // 2) 각각의 state를 여러 개 만들어도 되고 객체 형태로 한번에 관리해도 됨 (객체 복사본을 만들어 관리하고 걔를 셋함수에 넣어줭햐마)
 function SignUp() {
-  const [name, setName] = useState('');
-  const [gender, setGender] = useState('M');
+  // const [name, setName] = useState('');
+  // const [gender, setGender] = useState('M');
 
+  const [inputs, setInputs] = useState({
+    name: '',
+    gender: 'M'
+  });
 
-  const handleChangeName = (e) => {
-    setName(e.target.value);
+  const { name, gender } = inputs;
+  // 구조분해할당 안하면 계속 inputs.name 이런식으로 써야함
+
+  const handleInputs = (e) => {
+    // debugger
+    const { name, value } = e.target;
+    console.log(name, value);
+
+    // 방법1
+    const copyInputs = {
+      ...inputs
+    };
+    copyInputs[name] = value
+    setInputs(copyInputs)
+    
+    // 방법2
+    // setInputs((inputs) => ({
+    //   ...inputs,
+    //   [name]: value
+    // }))
+
   };
 
-  const handleChangeGender = (e) => {
-    setGender(e.target.value)
-  };
 
   const handleAlert = () => {
     alert(
@@ -44,14 +64,15 @@ function SignUp() {
         이름: 
         <input 
         type="text" 
-        onChange={handleChangeName}
+        onChange={handleInputs}
         value={name}
+        name="name"
         />
       </label>
       <br />
       <label>
         성별: 
-        <select value={gender} onChange={handleChangeGender}>
+        <select value={gender} onChange={handleInputs} name="gender">
           <option value="M">남자</option>
           <option value="W">여자</option>
         </select>
