@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from "styled-components";
-import TodoInsert from './TodoInsert';
+
 const TodoTemplateWrapper = styled.div`
   width: 512px;
   margin: 0 auto;
