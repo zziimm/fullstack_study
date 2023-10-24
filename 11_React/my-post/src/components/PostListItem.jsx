@@ -4,38 +4,37 @@ import PostDetail from './PostDetail';
 
 function PostListItem() {
   // 서버에서 가져온 데이터라고 가정
-  const [posts, setPosts] = useState(['리액트 잘 쓰려면?', '자바스크립트 핵심 문법', '스타일링 가이드']);
+  // const [posts, setPosts] = useState(['리액트 잘 쓰려면?', '자바스크립트 핵심 문법', '스타일링 가이드']);
   const [showPostDetail, setShowPostDetail] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likeCount, setLikeCount] = useState([0, 0, 0]);
   const [plus, setPlus] = useState('');
 
-  const [inputs, setInputs] = useState(
+  const [posts, setPosts] = useState(
     [{
       id: 1,
-      postss: '리액트 잘 쓰려면?',
-      likeCountt: 0,
+      post: '리액트 잘 쓰려면?',
+      likeCount: 0,
       date: new Date(),
       author: 'zim'
     },
     {
       id: 2,
-      postss: '자바스크립트 핵심 문법',
-      likeCountt: 0,
+      post: '자바스크립트 핵심 문법',
+      likeCount: 0,
       date: new Date(),
       author: '지민지'
     },
     {
       id: 3,
-      postss: '리액트를 잘 써보자',
-      likeCountt: 0,
+      post: '리액트를 잘 써보자',
+      likeCount: 0,
       date: new Date(),
       author: '민지민'
     }]
   );
-  console.log(inputs);
-  const {id, postss, likeCountt, date, author} = inputs
-  console.log(id);
+  const cop = [...posts]
+  console.log(cop);
 
 
 
@@ -91,9 +90,9 @@ function PostListItem() {
                 setShowPostDetail(true);
                 setCurrentIndex(index);
               }}>
-              <h4>{post}</h4>
-              <p>2023년 1월 20일</p>
-              <p>by goni.kim</p>
+              <h4>{post.post}</h4>
+              <p>{post.date.getDay()}</p>
+              <p>by {post.author}</p>
 
               <hr />
 
