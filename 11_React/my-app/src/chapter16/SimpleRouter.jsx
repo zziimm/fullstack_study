@@ -38,6 +38,10 @@ import NoMatchPage from './Pages/NoMatchPage';
 // 더 많은 기능은 공식 문서 참고
 // https://reactrouter.com/
 
+// 라우팅: 해당 주소에서 해당 컴포넌트를 보여줘라
+// 컴포넌트에 전환효과를 주고싶으면 조건부 렌더링을 사용해라 (등장/퇴장 모션같은거)
+// 라우팅 해야할 때와 조건부 렌더링을 해야할 때를 구분하기
+
 
 
 function SimpleRouter(props) {
