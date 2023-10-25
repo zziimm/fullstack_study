@@ -34,9 +34,6 @@ function PostListItem() {
     }]
   );
   const cop = [...posts]
-  console.log(cop);
-
-
 
 
   const handlePlus = (e) => {

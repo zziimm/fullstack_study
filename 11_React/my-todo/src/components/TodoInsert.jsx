@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdAdd } from "react-icons/md";
 // 쓰고 싶은 아이콘들을 , 하고 추가
@@ -42,10 +42,38 @@ const StyledButton = styled.button`
 
 // 새로운 항목을 입력하고 추가할 수 있는 컴포넌트
 // state를 통해 input의 상태를 관리
-function TodoInsert(props) {
+function TodoInsert( {onInsert} ) {
+  const [value, setValue] = useState('');
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
+  };
+
+  // 객체 추가
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // 유효성 검사 추가
+    if (!value) { // '', null, undefined 일 때 라는 뜻
+      alert('무엇을 할 지 내용을 입력하세요!')
+      return; // 함수 종료
+    }
+
+    onInsert(value);
+    setValue('') // value 값 초기화
+  }
+
   return (
-    <TodoInsetWrapper>
-      <StyledInput type='text' placeholder='할 일을 입력하세요.'/>
+    // form 태그 사용 시 input에서 엔터키를 눌렀을 때도 submit 이벤트가 발생
+    // (참고) 일반적으로 keyup 이벤트를 통해 엔터키를 감지하는 로직을 작성
+    <TodoInsetWrapper onSubmit={handleSubmit}>
+      <StyledInput value={value} onChange={handleChange} type='text' placeholder='할 일을 입력하세요.' 
+      onKeyUp={(e) => {
+        console.log(e.key);
+        // if (e.key === 'Enter') {  
+          // 엔터를 눌렀을 때 ~~을 실행해라
+        // }
+      }}/>
       <StyledButton type='submit'>
         <MdAdd />
       </StyledButton>
