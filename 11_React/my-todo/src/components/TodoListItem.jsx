@@ -69,12 +69,12 @@ const Remove = styled.div`
 function TodoListItem(props) {
   // 객체를 가져오게되면 디스트럭처리 디스트럭쳐리 쓰면 좋음
   // const { todo: {id, text, checked} } = props;
-  const { todos:{id, text, checked}, onRemove } = props;
+  const { todos:{id, text, checked}, onRemove, onToggle } = props;
 
   // 가져온 데이터를 넣어주는 작업: 데이터 바인딩
   return (
     <TodoListItemWrapper>
-      <CheckBox checked={checked}>
+      <CheckBox checked={checked} onClick={() => { onToggle(id); }}>
         {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
       </CheckBox>
       <Text checked={checked}>{text}</Text>

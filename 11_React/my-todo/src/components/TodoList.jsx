@@ -12,7 +12,7 @@ const TodoListWrapper = styled.div`
 
 // todos 배열을 props로 받아와서 map() 함수를 사용해 여러 개의 TodoListItem 컴포넌트로 변환해 보여줌
 function TodoList(props) {
-  const { todos, onRemove } = props;
+  const { todos, onRemove, onToggle } = props;
 
   return (
     <TodoListWrapper>
@@ -24,7 +24,7 @@ function TodoList(props) {
       {todos.map((todos)=>{
         // return <TodoListItem key={todos.id} text={todos.text} checkBox={todos.checked} onRemove={onRemove}/>
         // key 값은 props로 쓰면 안된다.
-        return <TodoListItem todos={todos} onRemove={onRemove} />  // 객체 데이터를 한번에 전달해도 됨
+        return <TodoListItem key={todos.id} todos={todos} onRemove={onRemove} onToggle={onToggle}/>  // 객체 데이터를 한번에 전달해도 됨
       })}
     </TodoListWrapper>
   );
