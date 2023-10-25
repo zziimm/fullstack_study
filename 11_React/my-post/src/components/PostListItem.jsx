@@ -15,21 +15,21 @@ function PostListItem() {
       id: 1,
       post: '리액트 잘 쓰려면?',
       likeCount: 0,
-      date: new Date(),
+      // date: new Date(),
       author: 'zim'
     },
     {
       id: 2,
       post: '자바스크립트 핵심 문법',
       likeCount: 0,
-      date: new Date(),
+      // date: new Date(),
       author: '지민지'
     },
     {
       id: 3,
       post: '리액트를 잘 써보자',
       likeCount: 0,
-      date: new Date(),
+      // date: new Date(),
       author: '민지민'
     }]
   );
@@ -88,7 +88,7 @@ function PostListItem() {
                 setCurrentIndex(index);
               }}>
               <h4>{post.post}</h4>
-              <p>{post.date.getDay()}</p>
+              {/* <p>{post.date.getFullYear()}</p> */}
               <p>by {post.author}</p>
 
               <hr />
