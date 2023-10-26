@@ -46,6 +46,11 @@ import Blocks from './chapter15/theme/Blocks';
 import ThemeApp from './chapter15/theme/ThemeApp';
 import ComponentVariable from './chapter7/7.6/ComponentVariable';
 import SimpleRouter from './chapter16/SimpleRouter';
+import CounterEffect from './chapter7/7.4/Ex1/CounterEffect';
+import EventSummary from './chapter7/7.4/Ex2/EventSummary';
+import EffectContainer from './chapter7/7.4/Ex2/EffectContainer';
+import Timer from './chapter7/7.4/Ex3/Timer';
+import TimerContainer from './chapter7/7.4/Ex3/TimerContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -91,6 +96,10 @@ root.render(
     // <SetStateMerge />
     // <TextInputWithFocusButton />
     // <ComponentVariable />
+    // <CounterEffect />
+    // <EventSummary />
+    // <EffectContainer />
+    <TimerContainer />
 
     // 8장 예제
     // <Toggle />
@@ -141,7 +150,7 @@ root.render(
     // <ThemeApp />
 
     // 16장 예제    
-    <SimpleRouter />
+    // <SimpleRouter />
 
     
 
