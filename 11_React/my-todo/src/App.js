@@ -74,6 +74,7 @@ function App() {
 
   // 데이터 3개가 있다는 가정하에 4를 줬음 (4부터 시작)
   const nextId = useRef(4);
+  console.log(nextId);
 
   const handleInsert = (text) => {
     const todo = {
