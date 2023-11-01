@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from "react-redux";
+
+
+
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -52,6 +57,8 @@ import EffectContainer from './chapter7/7.4/Ex2/EffectContainer';
 import Timer from './chapter7/7.4/Ex3/Timer';
 import TimerContainer from './chapter7/7.4/Ex3/TimerContainer';
 import ApiRequest from './chapter17/ApiRequest';
+import ReduxTestApp from './chapter18/ReduxTestApp';
+import { store } from './chapter18/app/Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -154,7 +161,16 @@ root.render(
     // <SimpleRouter />
 
     // 17장 예제
-    <ApiRequest />
+    // <ApiRequest />
+
+    // 18장 예제
+    // Redux 설정
+    // 2. 리액트에 Redux Store 제공하기
+    // ReduxTestApp 컴포넌트와 그 하위 자식들은 Redux Store에 접근 가능
+    // Redux Store에 저장된 state들을 마음대로 꺼내 쓸 수 있음
+    <Provider store={store}>
+        <ReduxTestApp />
+    </Provider>
 
     
 
