@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import axios from "axios";
+import { HashLoader } from "react-spinners";
 
 // 리액트(JS)에서 이미지 파일 가져오기
 import yonexImg from "../images/yonex.jpg";
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts, selectProductList } from '../features/product/productslice';
+import { addMoreProducts, getAllProducts, getMoreProductsAsync, selectProductList, selectStatus } from '../features/product/productslice';
 import ProductListItem from '../components/ProductListItem';
+import { getMoreProduct } from '../api/productAPI';
 
 const MainBackground = styled.div`
   height: 500px;
@@ -20,6 +22,12 @@ const MainBackground = styled.div`
 function Main(props) {
   const dispatch = useDispatch();
   const productList = useSelector(selectProductList);
+  const status = useSelector(selectStatus); // API 요청 상태 (로딩 상태로 쓸 수 있음)
+
+
+  // 리덕스 로딩
+  const [lo, setLo] = useState(false);
+
 
   // 처음 마운트 됐을 때 서버에 상품 목록 데이터를 요청하고
   // 그 결과를 리덕스 스토어에 전역 상태로 저장
@@ -34,6 +42,19 @@ function Main(props) {
         console.error(error);
       });
   }, []);
+
+  const handleGetMoreProducts = async () => {
+    // 리덕스 로딩
+    setLo(true)
+    const result = await getMoreProduct();
+    dispatch(addMoreProducts(result));
+    // 리덕스 로딩
+    setLo(false)
+  };
+
+  const handleGetMoreProductsAsync = () => {
+    dispatch(getMoreProductsAsync());
+  };
 
 
   return (
@@ -76,8 +97,44 @@ function Main(props) {
             {productList.map((item) => {
               return <ProductListItem key={item.id} item={item}/>
             })}
+
+            {/* 로딩 만들기 */}
+            {status === 'loading' && 
+              <div style={{display:'flex', justifyContent:'center'}}>
+                <HashLoader
+                  color="#04d000"
+                  size={50}
+                />
+              </div>
+            }
+
+            {/* 리덕스 로딩 */}
+            {lo && 
+              <div style={{display:'flex', justifyContent:'center'}}>
+                <HashLoader
+                  color="#04d000"
+                  size={50}
+                />
+              </div>
+            }
+
           </Row>
         </Container>
+        
+
+        {/* 상품 더보기 기능 만들기
+          더보기 버튼 클릭 시 axios를 사용하여 데이터 요청
+          받아온 결과를 전역 상태에 추가하기 위해 slice에 리듀서 추가 및 (액션 생성함수)exprot
+          스토어에 dispatch로 요청 보내기 */}
+          {/* HTTP 요청 코드를 함수로 만들어서 api 폴더로 추출 */}
+          <Button variant='secondary' className='mb-4' onClick={handleGetMoreProducts}>
+            더보기
+          </Button>
+
+          {/* thunk를 이용한 비동기 작업 처리하기 */}
+          <Button variant='secondary' className='mb-4' onClick={handleGetMoreProductsAsync}>
+            더보기 {status}
+          </Button>
       </section>
     </>
   );
@@ -110,11 +167,14 @@ export default Main;
 // GitHub에 저장소 생성(<your-username>/<your-repo>)
 // db.json파일 만들기
 // 서버에 액세스하려면 https://my-json-server.typicode.com/<your-username>/<your-repo>를 방문
-// https://my-json-server.typicode.com/zziimm/db.json
+
 
 // 사용 예
 // https://my-json-server.typicode.com/geoblo/db-shop
 // https://my-json-server.typicode.com/geoblo/db-shop/products
 // https://my-json-server.typicode.com/geoblo/db-shop/products/1
 
+
+// 내 서버
+// https://my-json-server.typicode.com/zziimm/db.json
 // https://my-json-server.typicode.com/zziimm/db.json/products
