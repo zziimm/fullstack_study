@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, Col, Container, Form, Nav, Row } from 'react-bootstrap';
+import { Alert, Button, Col, Container, Form, Modal, Nav, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { clearSelectedProduct, getSelectedProducts, selectedProductList } from '../features/product/productslice';
 import styled, { keyframes } from 'styled-components';
 import { toast } from 'react-toastify';
 import TabContents from '../components/TabContents';
+import { addItemToCart } from '../features/cart/cartSlice';
 
 // 스타일드 컴포넌트를 이용한 애니메이션 속성 적용
 const highlight = keyframes`
@@ -26,6 +27,7 @@ function ProductDetail(props) {
   const product = useSelector(selectedProductList);
 
 
+
   // 숫자 포맷 적용
   // (국가, {옵션})
   const formatter = new Intl.NumberFormat('ko-KR', { style: 'currency', currency:'KRW'});
@@ -34,6 +36,11 @@ function ProductDetail(props) {
   const [orderCount, setOrderCount] = useState(1); // 주문수량 상태
   const [showTabIndex, setShowTabIndex] = useState(0); // 탭 상태
   const [tab, setTab] = useState('deteil'); // 탭 상태
+  const [showModal, setShowModal] = useState(false); // 모달 상태
+  
+  const handleCloseModal = () => setShowModal(false);
+  const handleOpenModal = () => setShowModal(true);
+  const navigate = useNavigate();
 
   const handelOrderCount = (e) => {
     // 숫자 외 입력 시 유효성 검사
@@ -125,6 +132,29 @@ function ProductDetail(props) {
             <Form.Control type="text" value={orderCount} onChange={handelOrderCount} />
           </Col>
           <Button variant='primary'>주문하기</Button>
+          <Button variant='warning'
+            onClick={() => {
+                // dispatch(addItemToCart(
+                //   {
+                //     id: product.id,
+                //     title: product.title,
+                //     price: product.price,
+                //     count: orderCount
+                //   }
+                // ))}
+
+                // 변경될 가능성이 있으니까
+                // 상품 정보 전체를 넘기고 필요한 값만 밑에 추가해서 넘겨주는 방법도 있음
+                dispatch(addItemToCart({
+                    ...product,
+                    count: orderCount
+                  }))
+                handleOpenModal();
+              }}
+          >
+            장바구니
+          </Button>
+          
         </Col>
       </Row>
       <Nav variant="tabs" defaultActiveKey="link-0" className='my-3'>
@@ -185,6 +215,26 @@ function ProductDetail(props) {
         }[tab]
       }
       
+
+      {/* 장바구니에 담기 모달 만들기
+        추후 공통 모달로 만드는 것이 좋음 */}
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>🛒 지민지 샵 알림</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          장바구니에 상품을 담았습니다. <br />
+          장바구니로 이동하시겠습니까?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={() => { navigate('/cart') }}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
