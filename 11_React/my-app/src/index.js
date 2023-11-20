@@ -59,6 +59,9 @@ import TimerContainer from './chapter7/7.4/Ex3/TimerContainer';
 import ApiRequest from './chapter17/ApiRequest';
 import ReduxTestApp from './chapter18/ReduxTestApp';
 import { store } from './chapter18/app/Store';
+import AppContainer from './chapter18/components/AppContainer';
+import { BrowserRouter } from 'react-router-dom';
+import Main from './chapter18/components/Main';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -168,9 +171,10 @@ root.render(
     // 2. 리액트에 Redux Store 제공하기
     // ReduxTestApp 컴포넌트와 그 하위 자식들은 Redux Store에 접근 가능
     // Redux Store에 저장된 state들을 마음대로 꺼내 쓸 수 있음
-    <Provider store={store}>
-        <ReduxTestApp />
-    </Provider>
+    // <Provider store={store}>
+    //     <ReduxTestApp />
+    // </Provider>
+    <AppContainer />
 
     
 
