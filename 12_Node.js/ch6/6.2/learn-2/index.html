@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>익스프레스 서버</title>
+</head>
+<body>
+  <h1>익스프레스</h1>
+  <p>배워봅시다.</p>
+
+  <div>
+    <!-- action: url 요청 주소 -->
+    <form action="/login" id="form" method="post">
+      <label for="username">사용자</label>
+      <input type="text" id="username" name="username">
+      <input type="text" id="username2" name="username2">
+      <input type="text" id="username3" name="username3">
+      <button type="submit">등록</button>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    document.getElementById('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = e.target.username.value;
+      const name2 = e.target.username2.value;
+      const name3 = e.target.username3.value;
+      try {
+        await axios.post('/login', { name, name2, name3 }); // name: name
+      } catch (err) {
+        console.error(err);
+      }
+      e.target.username.value = '';
+      e.target.username2.value = '';
+      e.target.username3.value = '';
+    });
+
+    // document.querySelector('#form').addEventListener('submit', async (e) => {
+    //   e.preventDefault();
+    //   const item = e.target.username.value;
+    //   const item2 = e.target.username2.value;
+    //   const item3 = e.target.username3.value;
+    //   try {
+    //     await axios.post('/login', { item, item2, item3 })
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    //   e.target.username.value = '';
+    //   e.target.username2.value = '';
+    //   e.target.username3.value = '';
+    // })
+  </script>
+</body>
+</html>
