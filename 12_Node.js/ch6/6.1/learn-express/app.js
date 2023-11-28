@@ -98,6 +98,7 @@ app.post('/login', (req, res) => {
 })
 
 // 라우트 매개변수(route parameter, req.params)
+// 라우트 파라미터
 app.get('/category/:name', (req, res) => {
   res.send(`hello ${req.params.name}`);
 });
