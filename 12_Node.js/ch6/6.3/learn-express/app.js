@@ -10,6 +10,9 @@ dotenv.config();
 // 라우터 가져오기
 const indexRouter = require('./routes/index'); // indexRouter 가져오기(/index는 생략 가능하다, index만 가능하다)
 const userRouter = require('./routes/user'); // userRouter 가져오기(/index는 생략 가능하다, index만 가능하다)
+const shopRouter = require('./routes/shop');
+const boardRouter = require('./routes/board');
+
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -48,6 +51,25 @@ app.use('/', indexRouter); // '/'로 요청이 들어오면 indexRouter로
 app.use('/user', userRouter);
 
 
+
+// Quiz2: 아래 라우터(API)들을 분리해보기(다른 파일로 추출)
+app.use('/shop', shopRouter);
+// app.get('/shop/shirts', (req, res) => {
+//   res.send('셔츠 판매 페이지');
+// });
+// app.get('/shop/pants', (req, res) => {
+//   res.send('바지 판매 페이지');
+// });
+  
+app.use('/board', boardRouter);
+// app.get('/board/sub/notice', (req, res) => {
+  //   res.send('공지사항 게시판');
+// });
+// app.get('/board/sub/qna', (req, res) => {
+//   res.send('문의 게시판');
+// });
+
+
 // 404 에러 전용 미들웨어
 app.use((req, res, next) => {
   console.error(err);
@@ -60,5 +82,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(app.get('port'), () => {
-  console.log(app.get('port') + '번에서 서버 실행 중');
+console.log(app.get('port') + '번에서 서버 실행 중');
 });
+
+
