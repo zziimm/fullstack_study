@@ -12,15 +12,13 @@ const userSchema = new Schema({ // 스키마 정의: RDB의 테이블처럼 정�
   age: {
     type: Number,
     required: true,
-    unique: true
   },
   married: {
     type: Boolean,
     required: true,
-    unique: true
   },
   comment: String, // 옵션이 type 밖에 없을 때는 간단하게 생략 가능
-  createAt: {
+  createdAt: {
     type: Date,
     default: Date.now, // 기본값은 현재 시간으로
   }
