@@ -44,20 +44,26 @@
   <div class="white-bg">
     <% for (let i = 0; i < posts.length; i++) { %>
       <div class="list-box">
-        <h4><%= posts[i].title %></h4>
+        <h4>
+          <!-- 글 제목 누르면 상세 페이지로 이동하도록 링크 걸기 -->
+          <a href="/post/<%= posts[i]._id%>">
+            <%= posts[i].title %>
+          </a>
+
+          <!-- 글 수정 버튼 -->
+          <a href="/post/edit/<%= posts[i]._id%>">🛠</a>
+
+          <!-- 글 삭제 버튼 -->
+          <!-- data-: 사용자 정의 속성, HTML에 데이터 저장 시 주로 사용 -->
+          <span class="delete cursor-pointer" data-id="<%= posts[i]._id%>" >🗑</span>
+        </h4>
         <p><%= posts[i].content %></p>
       </div>
     <% } %>
   </div>
 
-  <div class="white-bg">
-    <% posts?.map((post) => { %>
-      <div class="list-box">
-        <h4><%= post.title %></h4>
-        <p><%= post.content %></p>
-      </div>
-    <% }) %>
-  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/js/list.js" ></script>
 
 </body>
 </html>
