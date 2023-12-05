@@ -1,10 +1,46 @@
 const express = require('express');
 const { ObjectId } = require('mongodb');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
+const { S3Client } = require('@aws-sdk/client-s3');
 
+
+const { isLoggedIn } = require('../middlewares/index');
 const { client } = require('../database/index');
 const db = client.db('board'); // board 데이터베이스에 연결 (애초에 파일이 없어도 생성되면서 연결됨)
 
 const router = express.Router();
+
+// multer, S3, aws-sdk 설정
+// 발급받은 액세스 키랑 비밀키 기입(털리면 안되니까 .env에 저장)
+// region: S3 리전(데이터센터) 설정하는 부분인데 서울이면 ap-northeast-2 기입
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY,
+    secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET
+  },
+  region: 'ap-northeast-2'
+});
+
+// s3 클라이언트
+// 버킷이름 설정
+// 저장할 파일명도 바꿀 수 있음
+// 파일명을 안 겹치게 하려면 랜덤 문자(uuid)를 넣던가 아니면 현재 시간(timestamp)을 섞거나
+// 이렇게 하는 이유? 파일 이름이 중복되면 덮어씌우기 때문에
+
+const upload = multer({
+  storage: multerS3({
+    s3,
+    bucket: 'zzimboard', // 만든 버킷 이름
+    key(req, file, cb) { // key 속성에 함수를 넣은것(ES6차에 의해 이렇게 써도됨) , 원본 파일명을 쓰고 싶으면 file 안에 들어있음
+      cb(null, `original/${Date.now()}_${file.originalname}`); // 업로드 시 파일명
+    }
+
+  }),
+  limits: { fieldSize: 5 * 1024 * 1024 } // 파일 사이즈(바이트 단위): 5MB로 제한(그 이상 업로드 시 400번대 에러 발생)
+});
+// 여기까지 세팅하면 upload.single('input name') 미들웨어 사용으로 S3에 업로드 가능
+
 
 // 글 목록 기능 만들기
 // GET /post 라우터
@@ -32,18 +68,40 @@ const router = express.Router();
 // 3) 이상없으면 DB에 저장
 
 // GET /post/write 라우터
-router.get('/write', (req, res) => {
+// 미들웨어에 미들웨어 장착하기
+router.get('/write', isLoggedIn, (req, res) => {
   res.render('write');
+  
+  // Quiz
+  // 로그인한 사람만 글을 작성할 수 있게 만들고 싶으면?
+  // 로그인한 경우엔 req.user 안에 뭔가 들어있음
+  // 반대로 비어있으면 로그인 안 한 상태
+  // if (req.user) {
+  //   res.render('write');
+  // } else {
+  //   res.json({
+  //     flag: false,
+  //     message: '로그인을 하셔야 작성하실 수 있습니다!'
+  //   });
+  // }
+
 });
 
 // POST /post/write 라우터
-router.post('/write', async (req, res, next) => {
+// 이미지 파일 업로드를 위한 미들웨어 장착
+// name='img'인 파일이 서버로 전송되면 S3에 자동 업로드 해줌
+// 업로드 완료 시 이미지의 URL도 생성해줌(req.file에 들어있음)
+router.post('/write', isLoggedIn, upload.single('img'), async (req, res, next) => {
+  console.log(req.file); // 업로드 후 S3 객체(파일) 정보
+  console.log(req.file.location); // 이미지의 URL정보, img 태그 src 속성에 넣으면 동작함
   console.log(req.body); // body-parser가 분석해서 req.body에 객체로 저장
 
   // DB 예외 처리
   try {
     const title = req.body.title;
     const content = req.body.content;
+    const author = req.body.author;
+    console.log(req.file);
     // 유효성 검사 추가하기
     if (title === '') { // 제목이 비어있으면 저장 안함
       res.json({
@@ -53,7 +111,9 @@ router.post('/write', async (req, res, next) => {
     } else {
       await db.collection('post').insertOne({
         title,
-        content
+        content,
+        author,
+        imgUrl: req.file.location // 이미지 URL을 글과 함께 DB에 저장
       });
       // 동기식이면 post로 이동
       // res.redirect('/post');
@@ -96,8 +156,9 @@ router.get('/:id', async (req, res, next) => {
   try {
     // 실제: 라우트 매개변수에 입력한 값
     const post = await db.collection(`post`).findOne({ _id: new ObjectId(req.params.id) });
-    console.log(post);
-
+    const comment = await db.collection('comment').find({ postId: new ObjectId(req.params.id) }, {});
+    console.log('로그1'+post);
+    console.log('로그'+comment);
     // 2) 번에 대한 예외 처리
     if (!post) {
       const error = new Error('데이터 없음');
@@ -105,7 +166,7 @@ router.get('/:id', async (req, res, next) => {
       next(error);
     }
 
-    res.render('detail', { post });
+    res.render('detail', { post, comment });
 
   } catch (err) { // 1) 번에 대한 예외 처리
     err.message = '잘못된 url 입니다.' // 이렇게 쓰면 그냥 친절한거
@@ -226,6 +287,14 @@ router.get('/', async (req, res) => {
   }
 
   res.render('list', { posts, numOfPage, currentPage });
+});
+
+router.post('/comment', isLoggedIn, async (req, res, next) => {
+  const commentAuthor = req.user.username;
+  const comment = req.body.comment;
+  const postId = req.body.postId;
+  await db.collection('comment').insertOne({ postId: new ObjectId(postId), comment, commentAuthor });
+  res.send('댓글달기 성공')
 });
 
 

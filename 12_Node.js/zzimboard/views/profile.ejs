@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .profile {
+      width: 100px;
+      /* 요소를 원으로 만들기 */
+      border-radius: 50%;
+      /* 블록 요소 수평 가운데 정렬 */
+      display: block;
+      margin: 0 auto;
+    }
+
+    p.content {
+      text-align: center;
+    }
+
+    span.co {
+      color: red;
+      font-weight: bold;
+    }
+
+    h3.title {
+      text-align: center;
+    }
+
+    div.box {
+      width: 500px;
+      background-color: aquamarine;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin: 0 auto;
+      border-radius: 5px;
+      box-shadow: 5px 5px black;
+    }
+
+  </style>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body class="grey-bg">
+  
+  <%- include('nav') %>
+  
+  <!-- <img class="profile" src="./laylot/images/logo.png" alt="프로필"> -->
+
+  <h3 class="title"><%= user.username %></h3>
+  
+  
+  <p class="content">
+    <span class="co">Full Stack</span>
+    Developer
+  </p>
+
+  <div class="box">
+    <span class="hi">
+      안녕하세요. <%= user.username %>입니다. <br>
+      현재 웹 프론트엔드/백앤드 수강중이며 <br>
+      취미는 캠핑입니다.</span>
+  </div>
+</body>
+</html>

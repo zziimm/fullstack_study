@@ -14,7 +14,7 @@
     2) method= GET, POST만 가능
   -->
   <!-- 파일을 보낼땐 enctype 기본값 말고 multipart -->
-  <form id="write-form" class="form-box" action="/post/write" method="post">
+  <form id="write-form" class="form-box" action="/post/write" method="post" enctype="multipart/form-data">
     <h4>글쓰기</h4>
     <!-- input의 데이터를 보내는 방법:
       name 속성 필수 작성(작명한 이름으로 서버에 데이터 전달) -->
@@ -22,6 +22,21 @@
     <input type="text" id="title" name="title">
     <label for="content">내용</label>
     <input type="text" id="content" name="content">
+
+      <!-- accept 속성이 이미지 파일을 강제하는 것은 아님,
+        이미지 파일이 맞는지는 JS로 확장자 검사,
+        확실하게 하려면 서버에서 검사 -->
+        <!-- (중요) 파일을 서버로 전송하고 싶으면 인코딩 타입을 multipart/form-data -->
+      <label for="img">이미지</label>
+      <input type="file" id="img" name="img" accept="image/*">
+
+    <% if (user) { %>
+      <label for="content">작성자</label>
+      <input type="text" id="author" name="author" disabled value="<%= user.username %>">
+      <% } else { %>
+        <label for="content">작성자</label>
+        <input type="text" id="author" name="author" disabled value="익명">  
+    <% } %>
     <button type="submit">등록</button>
   </form>
 

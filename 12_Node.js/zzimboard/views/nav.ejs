@@ -8,7 +8,8 @@
   <div>
     <% if (user) { %>
       <%= user.username %>님🤗
-      <a href="">Logout</a>
+      <a href="/user/logout">Logout</a>
+      <a href="/user/profile">Profile</a>
     <% } else { %>
       <a href="/user/login">Login</a>
       <a href="/user/register">Join</a>

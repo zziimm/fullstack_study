@@ -12,7 +12,32 @@
   <div class="detail-bg">
     <h4><%= post.title %></h4>
     <h4><%= post.content %></h4>
-    <button id="deleteBtn">x</button>
+    <h4><%= post.author %></h4>
+    <img src="<%= post.imgUrl %>" alt="1">
   </div>
+
+  <form class="form-box" id="comment-form">
+    <input type="hidden" name="postId" value="<%= post._id %>">
+    <label for="comment">댓글</label>
+    <input type="text" id="comment" name="comment">
+    <button type="submit">등록</button>
+  </form>
+
+  
+  <div class="white-bg">
+    <div class="list-box">
+      <% if (comment) { %>
+        <% for (let i = 0; i < comment.length; i++) { %>
+          <p><%= comment[i].comment %></p>
+          <p><%= comment[i].author %></p>
+        <% } %>
+      <% } else { %>
+        <p></p>
+      <% } %>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/js/comment.js" ></script>
 </body>
 </html>

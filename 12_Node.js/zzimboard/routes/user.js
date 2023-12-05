@@ -1,8 +1,11 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const { ObjectId } = require('mongodb');
+
 
 const { client } = require('../database/index');
 const passport = require('passport');
+const { isNotLoggedIn, isLoggedIn, checkIdAndPw } = require('../middlewares');
 const db = client.db('board');
 
 const router = express.Router();
@@ -26,7 +29,7 @@ const router = express.Router();
 // (참고)passport 이용 시 JWT, 소셜 로그인 구현도 가능
 
 // GET /user/register 라우터
-router.get('/register', (req, res) => {
+router.get('/register', isNotLoggedIn, (req, res) => {
   res.render('register.ejs');
 });
 
@@ -36,7 +39,7 @@ router.get('/register', (req, res) => {
 // /public/js/register.js 작성
 // POST /user/register 라우터 작성
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', isNotLoggedIn, checkIdAndPw, async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
@@ -78,12 +81,12 @@ router.post('/register', async (req, res, next) => {
 
 // 로그인, 로그아웃 라우터 작성
 // GET /user/login
-router.get('/login', (req, res) => {
+router.get('/login', isNotLoggedIn, (req, res) => {
   res.render('login');
 });
 
 // POST /user/login
-router.post('/login', (req, res, next) => {
+router.post('/login', isNotLoggedIn, (req, res, next) => {
   // 전송 받은 아이디, 비번에 DB에 있는지 확인하고 있으면 세션 만들기
   // 이 과정을 직접 만들기보다 paasport의 미들웨어를 이용하여 로컬 로그인 전략을 수행
   passport.authenticate('local', (authError, user, info) => { // 전략이 성공하거나 실패하면 실행될 콜백 함수
@@ -97,13 +100,50 @@ router.post('/login', (req, res, next) => {
       return res.status(401).json(info.message);
     }
 
+    // logIn(): 사용자 정보를 세션에 저장하는 작업을 시작
+    // passport.serializeUser가 호출됨
+    // user 객체가 serializeUser로 넘어가게 됨
     req.logIn(user, (loginError) => {
       if (loginError) {
         return next(loginError);
       }
-      res.redirect('/'); // 로그인 완료 시 실행할 코드
+      res.redirect('/'); // 로그인 완료 시 실행할 코드 (동기식이라서 redirect)
     });
   })(req, res, next);
 });
+
+// GET /user/logout
+// 우발적, 악의적 로그아웃을 방지하려면 GET 요청 대신 POST 또는 DELETE 요청 사용하면 좋음 (권장)
+router.get('/logout', isLoggedIn, (req, res, next) => {
+  // logout(): req.user 객체와 req.session 객체를 제거
+  req.logout((logoutError) => { // 제거 후 실행될 콜백함수 , 제거 후 콜백함수가 실행됨
+    if (logoutError) {
+      return next(logoutError);
+    };
+    res.redirect('/'); // 로그아웃 완료 시 실행될 코드
+  });
+});
+
+// (정리) 로그인 기능 요약 정리
+// 1. 로그인 성공하면 세션 만들고 세션 ID가 담긴 쿠키(세션 쿠키)를 사용자 브라우저에 저장
+// => req.login() -> passport.serializeUser() 쓰면 자동 처리
+// 2. 로그인 한 사용자가 서버에 요청을 보낼 때마다 쿠키가 같이 제출되는데 확인
+// => passport.deserializeUser() 쓰면 자동 처리
+// 3. 모든 라우터(API)에서 req.user 라고 쓰면 현재 로그인된 사용자 정보를 사용 가능
+
+// Quiz
+// 내 정보 페이지 만들기
+// 프로필 페이지는 로그인한 사람만 방문 가능
+// 프로필 페이지 레이아웃은 자유롭게 만드는데 현재 로그인된 사용자의 아이디는 표기할 것
+// GET /user/profile
+router.get('/profile', isLoggedIn, async (req, res, next) => {
+  res.render('profile.ejs');
+  // if (req.user) {
+    //   res.render('profile.ejs');
+  // } else {
+  //   res.status(401).send('로그인 필요');
+  // }
+});
+
 
 module.exports = router;

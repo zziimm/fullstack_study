@@ -3,6 +3,7 @@ const { MongoClient } = require('mongodb');
 // MongoDB 연결 설정하기
 // DB 주소 찾는법: Database > Connect > Drivers
 // mongodb+srv://root:<password>@cluster0.kafipby.mongodb.net/?retryWrites=true&w=majority   ?retryWrites=true&w=majority 이건 옵션임 넣어도되고 안넣어도됨
+// mongodb+srv://root:root1234@cluster0.kafipby.mongodb.net/
 const { MONGO_ID, MONGO_PASSWORD } = process.env;
 const url = `mongodb+srv://${MONGO_ID}:${MONGO_PASSWORD}@cluster0.kafipby.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
