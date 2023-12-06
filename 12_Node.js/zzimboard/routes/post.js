@@ -139,7 +139,7 @@ router.post('/write', isLoggedIn, upload.single('img'), async (req, res, next) =
 // 1) /post/글id 요청 보내기
 // 2) { _id: 글id } 조건으로 글을 DB에서 찾아서
 // 3) 해당 글을 ejs 파일에 꽂아서 보내줌
-router.get('/:id', async (req, res, next) => {
+router.get('/detail/:id', async (req, res, next) => {
   // res.render('detail');
 
   // DB에서 글 가져오기
@@ -156,9 +156,7 @@ router.get('/:id', async (req, res, next) => {
   try {
     // 실제: 라우트 매개변수에 입력한 값
     const post = await db.collection(`post`).findOne({ _id: new ObjectId(req.params.id) });
-    const comment = await db.collection('comment').find({ postId: new ObjectId(req.params.id) }, {});
-    console.log('로그1'+post);
-    console.log('로그'+comment);
+    const comment = await db.collection('comment').find({ postId: new ObjectId(req.params.id) }).toArray();
     // 2) 번에 대한 예외 처리
     if (!post) {
       const error = new Error('데이터 없음');
@@ -204,7 +202,7 @@ router.get('/edit/:id', async (req, res, next) => {
 
 router.patch('/:id', async (req, res, next) => {
   try {
-    // 어떤 documment를 찾아서 어떤 내용으로 수정할지 언어값 2개 전달
+    // 어떤 document를 찾아서 어떤 내용으로 수정할지 언어값 2개 전달
     await db.collection('post').updateOne({ 
       _id: new ObjectId(req.params.id) 
     }, { 
@@ -263,7 +261,7 @@ router.get('/', async (req, res) => {
   // 페이지네이션 구현(1)
   // 페이지 번호는 쿼리 스트링 또는 URL 파라미터 사용
   // 1-> 0, 2 -> 5, 3 -> 10
-  // const posts = await db.collection('post').find({}).skip((req.query.page - 1) * 5).limit(5).toArray(); // 쿼리스트링 /post?key(page)=value(n)
+  const posts = await db.collection('post').find({}).skip((req.query.page - 1) * 5).limit(5).toArray(); // 쿼리스트링 /post?key(page)=value(n)
 
   // 페이지 계산
   // 1~5 -> 1, 6~10 -> 2
@@ -277,17 +275,91 @@ router.get('/', async (req, res) => {
   // => 너무 많이 skip 하지 못하게 막거나 다른 페이지네이션 방법 구현
   // 장점: 매우 빠름(_id 기준으로 뭔가 찾는건 DB가 가장 빠르게 하는 작업)
   // 단점: 바로 다음 게시물만 가져올 수 있어서 1페이지 보다가 3페이지로 이동 불가
-  let posts;
-  if (req.query.nextId) {
-    posts = await db.collection('post')
-      .find({ _id: { $gt: new ObjectId(req.query.nextId) } }) // ObjectId는 대소비교가 가능하기 때문에 가능
-      .limit(5).toArray();
-  } else {
-    posts = await db.collection('post').find().limit(5).toArray(); // 처음 5개
-  }
+  // let posts;
+  // if (req.query.nextId) {
+  //   posts = await db.collection('post')
+  //     .find({ _id: { $gt: new ObjectId(req.query.nextId) } }) // ObjectId는 대소비교가 가능하기 때문에 가능
+  //     .limit(5).toArray();
+  // } else {
+  //   posts = await db.collection('post').find().limit(5).toArray(); // 처음 5개
+  // }
 
   res.render('list', { posts, numOfPage, currentPage });
 });
+
+// 검색 기능 만들기
+// 1) 검색 UI(input과 버튼)에서 서버로 검색어 전송
+// 2) 서버는 그 검색어가 포함된 documment를 찾음
+// 3) 그 결과를 ejs에 넣어서 보내줌
+
+// GET /post/search 라우터
+router.get('/search', async (req, res) => {
+  const keyword = req.query.keyword;
+
+  // 1. 서버는 그 검색어와 정확히 일치하는 documment를 찾음
+  // const posts = await db.collection('post').find({ title: keyword }).toArray();
+  // console.log(posts);
+  
+  // 2. 검색어가 포함된 documment를 찾으려면 => 정규표현식(정규식) 사용
+  // const posts = await db.collection('post').find({ title: { $regex: keyword } }).toArray();
+  // 문제점: documment가 매우 많을 경우 find()를 써서 _id가 아닌 다른 기준으로 documment를 찾는건 느려터짐
+  // 예: documment가 1억개 있으면 1억개를 다 뒤져봄
+  // 해결책: 데이터베이스에 index를 만들어두면 됨
+  
+  // 3. index를 사용한 검색
+  // $text: text index를 갖다 쓰겠다는 의미
+  // $search: 검색 키워드
+  // const posts = await db.collection('post').find({ $text: { $search: keyword } }).toArray();
+  
+  // (참고) find() 성능 평가
+  // explain()
+  // totalDocsExamined: 총 검색한 도큐먼트 숫자
+  // stage: 'COLLSCAN' 전체 스캔
+  // stage: 'TEXT_MATCH' 텍스트 매치 스캔
+  // const result1 = await db.collection('post').find({ title: keyword }).explain('executionStats');
+  // const result2 = await db.collection('post').find({ $text: { $search: keyword } }).explain('executionStats');
+  // console.log(result2);
+
+  // 4. search index를 사용한 검색
+  // find({ 조건 }) -> aggregate([{ 조건1 }, { 조건2 }])
+  // 장점: 여러 상세한 조건을 배열로 넣을 수 있다. => mongoDB에서는 pipeline이라고 부름
+  const posts = await db.collection('post').aggregate([
+    {
+      $search: { // search index 이용 full-text search를 수행
+        index: 'title_index', // 사용할 인덱스 이름
+        text: {
+          query: keyword, // 검색어
+          path: 'title' // 검색할 필드이름
+        }
+      }
+    }, // 기본적으로 검색어 관련도 점수가 높은 순으로 정렬됨
+    // aggregate에 쓸 수 있는 연산자(find에서는 메서드가 지원됨)
+    // { $sort: { _id: 1 } }, // 검색 결과 정렬(1: 오름차순, -1: 내림차순)
+    { $skip: req.query.page ? (req.query.page - 1) * 3 : 0 }, // 건너뛰기
+    { $limit: 3 }, // 결과수 제한
+    // { $project: { title: 1 } }, // 조회할 필드선택 (1: 추가, 0: 제외)
+  ]).toArray();
+  
+  // 카운트만 세는 로직
+  const postsCount = await db.collection('post').aggregate([
+    {
+      $search: { // search index 이용 full-text search를 수행
+        index: 'title_index', // 사용할 인덱스 이름
+        text: {
+          query: keyword, // 검색어
+          path: 'title' // 검색할 필드이름
+        }
+      }
+    },
+  ]).toArray();
+
+  const numOfPage = Math.ceil(postsCount.length / 3);
+  const currentPage = req.query.page || 1;
+
+
+  res.render('search', { posts, numOfPage, currentPage, keyword });
+});
+
 
 router.post('/comment', isLoggedIn, async (req, res, next) => {
   const commentAuthor = req.user.username;

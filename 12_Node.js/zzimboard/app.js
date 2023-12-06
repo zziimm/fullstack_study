@@ -5,6 +5,7 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 const path = require('path');
 const paasport = require('passport');
+const MongoStore = require('connect-mongo');
 
 dotenv.config();
 const indexRouter = require('./routes/index');
@@ -35,6 +36,10 @@ app.use(session({
     httpOnly: true,
     secure: false,  // 개발단계에서는 false로
   },
+  store: MongoStore.create({
+    mongoUrl: `mongodb+srv://${process.env.MONGO_ID}:${process.env.MONGO_PASSWORD}@cluster0.kafipby.mongodb.net/?retryWrites=true&w=majority`,
+    dbName: 'board'
+  }),
   name: 'session-cookie'
 }));
 // passport 미들웨어 설정
