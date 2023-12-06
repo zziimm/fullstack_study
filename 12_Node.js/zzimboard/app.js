@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 const paasport = require('passport');
 const MongoStore = require('connect-mongo');
+const cors = require('cors');
 
 dotenv.config();
 const indexRouter = require('./routes/index');
@@ -22,7 +23,7 @@ app.set('port', process.env.PORT || 3002);
 app.set('view engine', 'ejs');
 connect(); // 몽고디비에 연결
 
-
+app.use(cors())
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));  // '/' 경로가 루트면 생략 가능  app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
