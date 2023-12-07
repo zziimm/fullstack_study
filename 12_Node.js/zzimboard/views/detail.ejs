@@ -14,6 +14,24 @@
     <h4><%= post.content %></h4>
     <h4><%= post.author %></h4>
     <img src="<%= post.imgUrl %>" alt="1">
+
+    <hr style="margin-top: 60px;">
+    <% if (comment2) { %>
+      <% for (let i = 0; i < comment2.length; i++) { %>
+        <div>
+          <p>
+            <strong><%= comment2[i].author %></strong> <%= comment2[i].content %>
+          </p>
+        </div>
+      <% } %>
+    <% } else { %>
+      <p></p>
+    <% } %>
+    <form action="/post/comment2" method="post">
+      <input type="hidden" name="postId" value="<%= post._id %>">
+      <input type="text" name="content">
+      <button type="submit">등록</button>
+    </form>
   </div>
 
   <form class="form-box" id="comment-form">

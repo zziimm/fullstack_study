@@ -164,7 +164,7 @@ root.render(
     // <SimpleRouter />
 
     // 17장 예제
-    // <ApiRequest />
+    <ApiRequest />
 
     // 18장 예제
     // Redux 설정
@@ -174,7 +174,8 @@ root.render(
     // <Provider store={store}>
     //     <ReduxTestApp />
     // </Provider>
-    <AppContainer />
+    // <AppContainer />
+    // <ApiRequest />
 
     
 

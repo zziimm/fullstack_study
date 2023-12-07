@@ -23,7 +23,14 @@ app.set('port', process.env.PORT || 3002);
 app.set('view engine', 'ejs');
 connect(); // 몽고디비에 연결
 
-app.use(cors())
+// cors 설정
+// 원래는 헤더 설정을 해야하는데 자동으로 설정을 해줌
+app.use(cors({
+  credentials: true // 다른 도메인 간에 쿠키가 공유됨
+}))
+// (참고) axios에서도 도메인이 다른데, 쿠키를 공유해야 하는 경우
+// withCredentials: true 옵션을 줘서 요청을 보내야함
+
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));  // '/' 경로가 루트면 생략 가능  app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());

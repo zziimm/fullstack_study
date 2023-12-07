@@ -21,4 +21,4 @@ document.getElementById('write-form').addEventListener('submit', async (e) => {
   }
   e.target.title.value = '';
   e.target.content.value = '';
-});
+}); 

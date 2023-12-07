@@ -9,10 +9,13 @@ function ApiRequest(props) {
   // 1. Promise/then
   const handleRequsetById = (id) => {
     // jsonplaceholder에서 제공하는 테스트용 API를 호출
-    axios.get(`https://jsonplaceholder.typicode.com/photos/${id}`)
+    // axios.get(`https://jsonplaceholder.typicode.com/photos/${id}`)
+    axios.get(`http://localhost:8088/cors`, {
+      withCredentials: true  // 쿠키 공유할 때 엑시오스에서도 켜줘야함
+    })
       .then((response) => {
         console.log(response);
-        setData(response.data); // aaxios 라이브러리가 알아서 JSON 데이터를 -> 객체로 변환해 주는 작업을 자동으로 해줌
+        setData(response.data); // axios 라이브러리가 알아서 JSON 데이터를 -> 객체로 변환해 주는 작업을 자동으로 해줌
       })
       .catch((error) => { // 요청 실패한 경우 에러 핸들링
         console.error(error);
@@ -27,9 +30,7 @@ function ApiRequest(props) {
       setData(reaponse.data)
     } catch (error) {
       console.error(error);
-      
     }
-
   };
 
 
