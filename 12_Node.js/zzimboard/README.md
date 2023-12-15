@@ -13,3 +13,14 @@ Node.js, express, MongoDB를 이용해서 서버를 개발
 SNS 만들고 싶어요? 사진 올리는 게시판일 뿐임
 쇼핑몰을 만들고 싶다? 싱품 올리는 게시판일 뿐임
 주문 기능도 게시판 글 등록이랑 똑같은데 주문이라고 껍데기만 씌워놓은 것이지 로직은 같음
+
+
+
+
+  몽고디비 평가 내답안
+  // await object.forEach(item => db.collection('test').insertOne({ ...item })) 
+  // const re = await db.collection('test').find({ category: 'Technology' }).toArray();
+  // const re = await db.collection('test').find({}, {title:1, date:1}).toArray();
+  // const re = await db.collection('test').updateOne({ _id: req.params.id }, { content: '수정하기' } );
+  // const re = await db.collection('test').updateOne({ _id: req.params.id }, { $inc: { views: 1 } } );
+  // const re = await db.collection('test').updateMany({ _id: req.params.id, likes: { $gte:10 } }, { $addToSet: { tags: 'popular' } } );
