@@ -117,22 +117,22 @@ app.get('/uploads', (req, res) => {
 // });
 
 // 2) 여러 파일을 업로드하는 경우 array 미들웨어 사용
-// app.post('/uploads', upload.array('image'), (req, res) => {
-//   console.log(req.files); // 이 때는 file이 아닌 files임
-//   console.log(req.body);
-//   res.send('ok');
-// });
+app.post('/uploads', upload.array('image'), (req, res) => {
+  console.log(req.files); // 이 때는 file이 아닌 files임
+  console.log(req.body);
+  res.send('ok');
+});
 
 // 3) 여러 파일(input 태그를 여러 개 사용해서 name이 다른 경우)을 업로드하는 경우 fields 미들웨어 사용
-app.post('/uploads', 
-  upload.fields([{ name: 'image1' }, { name: 'image2' }]), 
-  (req, res) => {
-    console.log(req.files.image1); // 이 때는 file이 아닌 files임
-    console.log(req.files.image2); // 이 때는 file이 아닌 files임
-    console.log(req.body);
-    res.send('ok');
-  }
-);
+// app.post('/uploads', 
+//   upload.fields([{ name: 'image1' }, { name: 'image2' }]), 
+//   (req, res) => {
+//     console.log(req.files.image1); // 이 때는 file이 아닌 files임
+//     console.log(req.files.image2); // 이 때는 file이 아닌 files임
+//     console.log(req.body);
+//     res.send('ok');
+//   }
+// );
 
 // 4) 멀티파트로 보내는데 파일을 업로드하지 않았을 때 (잘 안씀)
 // app.post('/uploads', upload.none(), (req, res) => {
