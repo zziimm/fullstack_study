@@ -1,7 +1,25 @@
+'use client'
+
 import Link from "next/link";
 import DetailButton from "./DetailButton";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-export default function ListItem(props) {
+export default async function ListItem(props) {
+  const router = useRouter();
+
+  const postId = props.post._id;
+  const handleDelete = async (e) => {
+    console.log('버튼누르기');
+    // await axios.delete(`/api/post/${[postId]}`)
+    await axios.delete(`/api/post?postId=${[postId]}`)
+
+    // e.target.parentElement.remove(); // 요소제거
+    // location.href = '/list'; // 삭제하고 다시 리스트로 이동(새로고침 발생)
+    router.refresh(); // soft refresh, 변동이 있는 일부분만 바꿔줌
+  };
+
+
   return (
     <div className="list-item">
       {/* 페이지를 이동하는 방법(1) - Link 컴포넌트 */}
@@ -19,7 +37,7 @@ export default function ListItem(props) {
       <Link href={`/edit/${props.post._id}`}>🖋</Link>
 
       {/* 삭제 버튼 */}
-      <span className="cursor-pointer">🗑</span>
+      <span onClick={() => handleDelete()} className="cursor-pointer">🗑</span>
 
       <p>{props.content}</p>
     </div>

@@ -9,15 +9,6 @@ export default function handler(req, res) {
 
 
 
-  // 삭제
-  if (req.method === 'DELETE') {
-    // const postId = req.params.postId
-    await db.collection('post').deteleOne({});
-
-    res.redirect(302, '/list'); // 응답코드 생략 시 기본값: 307(Temporary)  
-
-  }
-
 
 
 

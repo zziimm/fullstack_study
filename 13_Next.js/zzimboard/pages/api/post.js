@@ -36,5 +36,29 @@ export default async function handler(req, res) {
     }
   }
 
+  if (req.method === 'DELETE') {
+    try {
+      const postId = req.query.postId;
+      console.log(postId);
+      const resulte = await db.collection('post').deleteOne({ _id: new ObjectId(postId) });
+
+      if (resulte.deletedCount === 0) {
+        throw new Error('삭제 실패');
+      }
+  
+  
+      res.json({
+        flag: true,
+        message: 'ok'
+      });
+      
+    } catch (err) {
+      console.error(err);
+      res.json({
+        flag: false,
+        message: 'ok'
+      });
+    }
+  }
 
 }
